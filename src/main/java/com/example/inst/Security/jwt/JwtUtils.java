@@ -17,7 +17,7 @@ public class JwtUtils {
     private static final Logger logger =
             LoggerFactory.getLogger(JwtUtils.class);
     @Value("${jesuitasrioja.app.jwtSecret}")
-    private String jwtSecret;
+    private static String jwtSecret;
     @Value("${jesuitasrioja.app.jwtExpirationMs}")
     private int jwtExpirationMs;
     public String generateJwtToken(Authentication authentication) {
@@ -51,5 +51,13 @@ public class JwtUtils {
             logger.error("JWT claims string is empty: {}", e.getMessage());
         }
         return false;
+    }
+    public static Claims parseJwt(String token) throws JwtException {
+        Claims claims = Jwts.parser()
+                .setSigningKey(jwtSecret)
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims;
     }
 }
