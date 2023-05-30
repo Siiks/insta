@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -42,7 +42,7 @@ public class AuthController {
     private SettingsRepository settingsRepository;
 
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @ModelAttribute LoginRequest
+    public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest
                                                       loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -58,7 +58,7 @@ public class AuthController {
                 userDetails.getTlf()));
     }
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @ModelAttribute SignupRequest
+    public ResponseEntity<?> registerUser(@RequestBody SignupRequest
                                                   signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
