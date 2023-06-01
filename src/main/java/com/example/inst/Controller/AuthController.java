@@ -93,7 +93,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<?> getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        AccountDetailsImpl userDetails = (AccountDetailsImpl) authentication.getCredentials();
         return ResponseEntity.ok(userDetails);
     }
 

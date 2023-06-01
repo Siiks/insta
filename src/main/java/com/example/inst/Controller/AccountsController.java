@@ -60,7 +60,7 @@ public class AccountsController {
     }
 
     @PutMapping("/update/account/{id}")
-    public ResponseEntity<Accounts> updateAccount(@ModelAttribute Accounts accounts, @PathVariable Long id){
+    public ResponseEntity<Accounts> updateAccount(@RequestBody Accounts accounts, @PathVariable Long id){
         accountsService.updateAccountById(accounts,id);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }

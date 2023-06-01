@@ -17,7 +17,7 @@ public class JwtUtils {
     private static final Logger logger =
             LoggerFactory.getLogger(JwtUtils.class);
     @Value("${jesuitasrioja.app.jwtSecret}")
-    private static String jwtSecret;
+    private String jwtSecret;
     @Value("${jesuitasrioja.app.jwtExpirationMs}")
     private int jwtExpirationMs;
     public String generateJwtToken(Authentication authentication) {
@@ -52,7 +52,7 @@ public class JwtUtils {
         }
         return false;
     }
-    public static Claims parseJwt(String token) throws JwtException {
+    public Claims parseJwt(String token) throws JwtException {
         Claims claims = Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)
